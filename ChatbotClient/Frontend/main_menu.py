@@ -1,6 +1,7 @@
 from tkinter import *
 import ChatbotClient.Backend.client as cl
 import threading
+import time
 
 
 class MainMenu:
@@ -40,7 +41,7 @@ class MainMenu:
         self.conv_window = Text(self.root, width=20, height=2, bg="#5856db", fg="#ffffff", font="Helvetica 14",
                              padx=5, pady=5)
 
-        self.conv_window.place(relheight=0.745, relwidth=0.95, relx=0.025, rely=0.2)
+        self.conv_window.place(relheight=0.725, relwidth=0.95, relx=0.025, rely=0.2)
 
         self.bottom_label = Label(self.root, bg="#ffffff", height=75)
 
@@ -57,17 +58,17 @@ class MainMenu:
 
 
         self.send_msg.place(relx=0.77, rely=0.008, relheight=0.06, relwidth=0.22)
+        self.send_msg.bind('<Return>', lambda event: MainMenu.send_msg(self))
 
         self.conv_window.config(cursor="arrow")
 
-        scrollbar = Scrollbar(self.conv_window)
-        scrollbar.place(relheight=0.84, relx=0.97)
-        scrollbar.config(command=self.conv_window.yview)
+        scrollbar = Scrollbar(self.root, bg="#5856db")
+        scrollbar.place(relheight=0.735, relwidth=0.95, relx=0.975, rely=0.15)
+        scrollbar.config(command=self.conv_window.yview, takefocus=1)
 
         self.conv_window.config(state=DISABLED)
 
-        rcv = threading.Thread(target=MainMenu.recive_msg(self))
-        rcv.start()
+
 
 
     def combine_funcs(*funcs, **kwargs):
@@ -81,19 +82,33 @@ class MainMenu:
         return combined_func
 
     def send_msg(self):
-        cl.send_message(self.entry_msg.get())
+        snd = threading.Thread(target=cl.send_message(self.entry_msg.get()))
+        snd.start()
         self.conv_window.config(state=NORMAL)
-        self.conv_window.insert(END,"Login: " + self.entry_msg.get() + "\n")
+        self.conv_window.insert(END,"Login: " + self.entry_msg.get() + "\n\n")
 
         self.conv_window.config(state=DISABLED)
         self.conv_window.see(END)
         self.entry_msg.delete(0, "end")
 
+        rcv = threading.Thread(target=MainMenu.recive_msg(self))
+        rcv.start()
+
     def recive_msg(self):
         while True:
-            msg_length = cl.client.recv(cl.HEADER).decode(cl.FORMAT)
-            if msg_length:
-                print(msg_length)
+            try:
+                msg_length = cl.client.recv(cl.HEADER).decode(cl.FORMAT)
+                if msg_length:
+                    self.conv_window.config(state=NORMAL)
+                    self.conv_window.insert(END, msg_length + "\n\n")
+                    self.conv_window.see(END)
+                    self.conv_window.config(state=DISABLED)
+                    break
+            except:
+                print("error")
+
+
+
 
 if __name__ == '__main__':
     new = MainMenu()
