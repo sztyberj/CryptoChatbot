@@ -85,7 +85,7 @@ class MainMenu:
         snd = threading.Thread(target=cl.send_message(self.entry_msg.get()))
         snd.start()
         self.conv_window.config(state=NORMAL)
-        self.conv_window.insert(END,"Login: " + self.entry_msg.get() + "\n\n")
+        self.conv_window.insert(END, "You: " + self.entry_msg.get() + "\n\n")
 
         self.conv_window.config(state=DISABLED)
         self.conv_window.see(END)
