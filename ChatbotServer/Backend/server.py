@@ -1,8 +1,17 @@
 import socket
 import threading
+import sys
+sys.path.append(r'C:\Users\sztyb\PycharmProjects\ChatBot')
+import ChatbotServer.Backend.scrapper
+import ChatbotServer.Backend.api
+import ChatbotServer.Database.database as db
 from ChatbotServer.Backend import chatbot
 
-HEADER = 512
+
+
+New = db.Database()
+
+HEADER = 1024
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
@@ -41,7 +50,6 @@ def start_server():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTION] {threading.active_count() - 1}")
 
 
 print("[STARTING] Server is starting...")

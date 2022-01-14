@@ -28,11 +28,13 @@ def scrap_website():
 if op.count_glossary() < 117:
     op.delete_all('Glossary')
     scrap_website()
+    print("Zasilono bazę pojęciami")
 
 if not os.path.exists('../Files/scrap.json'):
-    for i in op.select_all('Glossary'):
+    for i in op.select_all_gloss('Glossary'):
         dictio[i[0]] = i[1]
     with open('../Files/scrap.json', 'w') as fp:
         json.dump(dictio, fp)
+        print("Zapisano wyniki z bazy do pliku scrap.json")
 
 

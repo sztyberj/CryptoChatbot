@@ -16,6 +16,7 @@ class MainMenu:
         self.root.geometry('%dx%d+%d+%d' % (700, 500, self.x, self.y))
         self.root.resizable(False, False)
         self.root.minsize(300, 300)
+        self.root.title("CryptoChatbot")
 
         start_button = Button(self.root, text='Rozpocznij konwersację', highlightthickness=0, width=20, height=2, bg="#5856db",
                             fg="#ffffff", activebackground='#050430', activeforeground='#ffffff',
