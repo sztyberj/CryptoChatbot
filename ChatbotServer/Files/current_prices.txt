@@ -1,0 +1,12 @@
+Bitcoin(BTC):  42,550.59 USD 
+Ripple(XRP):  0.78 USD 
+DogeCoin(DOGE):  0.20 USD 
+Ethereum(ETH):  3,259.04 USD 
+Binance Coin(BNB):  479.67 USD 
+Dotcoin(DOT):  26.69 USD 
+Luna Coin(LUNA):  78.86 USD 
+Cardano(ADA):  1.27 USD 
+SOL(SOL):  146.38 USD 
+MATIC(MATIC):  2.26 USD 
+AVAX(AVAX):  89.89 USD 
+SHIB(SHIB):  0.00 USD 
