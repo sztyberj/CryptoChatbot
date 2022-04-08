@@ -4,8 +4,6 @@ import pandas as pd
 import datetime
 import nltk
 import json
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 import warnings
 import ChatbotServer.Database.db_operations as op
 warnings.filterwarnings('ignore')
